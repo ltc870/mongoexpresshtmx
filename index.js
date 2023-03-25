@@ -102,14 +102,11 @@ app.get("/get-edit-form/:id", async (req, res) => {
 
 app.put("/update/:id", async (req, res) => {
   const id = req.params.id;
-  await Book.findByIdAndUpdate(id).then((item) => {
-    item
-      .updateOne({
-        name: req.body.title,
-        author: req.body.author,
-      })
-      .then(() => {
-        return res.send(`<tr>
+  await Book.updateOne(
+    { id },
+    { name: req.body.title, author: req.body.author }
+  ).then(() => {
+    return res.send(`<tr>
         <td>${req.body.title}</td>
         <td>${req.body.author}</td>
         <td>
@@ -125,7 +122,6 @@ app.put("/update/:id", async (req, res) => {
           </button>
         </td>
       </tr>`);
-      });
   });
 });
 
