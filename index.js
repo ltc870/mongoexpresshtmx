@@ -29,7 +29,7 @@ app.set("views", path.join(__dirname, "views"));
 
 app.get("/", async (req, res) => {
   const books = await Book.find({});
-  return res.render("index", { books });
+  res.render("index", { books });
 });
 
 app.post("/submit", async (req, res) => {
@@ -39,7 +39,7 @@ app.post("/submit", async (req, res) => {
   };
   await Book.create(book).then((x) => {
     console.log("Created Book!");
-    return res.send(`<tr>
+    res.send(`<tr>
       <td>${req.body.title}</td>
       <td>${req.body.author}</td>
       <td>
@@ -63,7 +63,7 @@ app.get("/get-book-row/:id", async (req, res) => {
   const id = req.params.id;
   await Book.findById(id).then((book) => {
     console.log(req.body);
-    return res.send(`<tr>
+    res.send(`<tr>
     <td>${book.name}</td>
     <td>${book.author}</td>
     <td>
@@ -84,8 +84,8 @@ app.get("/get-book-row/:id", async (req, res) => {
 
 app.get("/get-edit-form/:id", async (req, res) => {
   const id = req.params.id;
-  await Book.findByIdAndUpdate(id).then((book) => {
-    return res.send(`<tr hx-trigger="cancel" class="editing" hx-get="/get-book-row/${id}">
+  await Book.findById(id).then((book) => {
+    res.send(`<tr hx-trigger="cancel" class="editing" hx-get="/get-book-row/${id}">
       <td><input name="title" value="${book.name}"/></td>
       <td><input name="author" value="${book.author}"/></td>
       <td>
@@ -106,7 +106,7 @@ app.put("/update/:id", async (req, res) => {
     { id },
     { name: req.body.title, author: req.body.author }
   ).then(() => {
-    return res.send(`<tr>
+    res.send(`<tr>
         <td>${req.body.title}</td>
         <td>${req.body.author}</td>
         <td>
