@@ -21,7 +21,7 @@ mongoose
 // app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(methodOverride("_method"));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.set("view engine", "pug");
