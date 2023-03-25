@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const uri =
-  "mongodb+srv://caudlel:TWINpb870@cluster0.97ek6nv.mongodb.net/?retryWrites=true&w=majority";
+require("dotenv").config();
+const uri = process.env.MONGO_URI;
 const Book = require("./app/model/books");
 
 mongoose
