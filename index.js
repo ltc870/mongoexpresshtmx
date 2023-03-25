@@ -102,7 +102,7 @@ app.get("/get-edit-form/:id", async (req, res) => {
 
 app.put("/update/:id", async (req, res) => {
   const id = req.params.id;
-  await Book.updateOne(
+  await Book.findByIdAndUpdate(
     { id },
     { name: req.body.title, author: req.body.author }
   ).then(() => {
