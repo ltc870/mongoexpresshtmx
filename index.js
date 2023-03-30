@@ -53,8 +53,8 @@ app.post("/submit", async (req, res) => {
 });
 
 app.delete("/delete/:id", async (req, res) => {
-  const id = req.params.id;
-  await Book.findByIdAndDelete(id);
+  const bookId = await Book.findOne({ _id: req.params.id }).exec();
+  await bookId.deleteOne({ _id: req.params.id });
   console.log("Deleted Book!!");
   return res.send("");
 });
