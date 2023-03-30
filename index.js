@@ -101,11 +101,11 @@ app.get("/get-edit-form/:id", async (req, res) => {
 });
 
 app.put("/update/:id", async (req, res) => {
-  const id = req.params.id;
-  await Book.findByIdAndUpdate(
-    { id },
-    { name: req.body.title, author: req.body.author }
-  ).then(() => {
+  const bookId = req.params.id;
+  await Book.findByIdAndUpdate(bookId, {
+    name: req.body.title,
+    author: req.body.author,
+  }).then(() => {
     res.send(`<tr>
         <td>${req.body.title}</td>
         <td>${req.body.author}</td>
